@@ -1,0 +1,170 @@
+{
+  "summary": {
+    "timestamp_utc": "2026-09-29T07:46:04.943898+00:00",
+    "mode": "full",
+    "top_k": 3,
+    "total_questions": 5,
+    "rag_questions": 5,
+    "rag_hits": 4,
+    "recall_at_3": 0.8,
+    "average_retrieval_latency_ms": 43.42,
+    "agent_questions_evaluated": 0,
+    "average_agent_latency_sec": null,
+    "tool_questions_evaluated": 0,
+    "tool_call_success_count": 0,
+    "tool_call_success_rate": null,
+    "errors": 5
+  },
+  "results": [
+    {
+      "id": 1,
+      "type": "rag",
+      "question": "제로 트러스트란 무엇인가?",
+      "retrieval_latency_ms": 32.59,
+      "retrieved_sources": [
+        {
+          "source": "nist_sp_800_207_zero_trust.pdf / p.13",
+          "score": 0.7887
+        },
+        {
+          "source": "nist_sp_800_207_zero_trust.pdf / p.13",
+          "score": 0.788
+        },
+        {
+          "source": "nist_sp_800_207_zero_trust.pdf / p.4",
+          "score": 0.7858
+        }
+      ],
+      "retrieved_contexts": [
+        "ased services, edge devices, \netc.). \nAn operative definition of zero trust and zero trust architecture is as follows: \nZero trust (ZT) provides a collection of concepts and ideas designed to minimize \nuncertainty in enforcing accurate, least privilege per-request access decisions in \ninformation systems and services in the face of a network viewed as compromised. Zero \ntrust architecture (ZTA) is an enterprise’s cybersecurity plan that utilizes zero trust \nconcepts and encompasses component relationships, workflow planning, and access \npolicies.",
+        "4 \n \n2 Zero Trust Basics \nZero trust is a cybersecurity paradigm focused on resource protection and the premise that trust \nis never granted implicitly but must be continually evaluated. Zero trust architecture is an end-to-\nend approach to enterprise resource and data security that encompasses identity (person and non-\nperson entities), credentials, access management, operations, endpoints, hosting environments, \nand the interconnecting infrastructure. The initial focus should be on restricting resources to",
+        "on system security, and its collaborative activities with industry, \ngovernment, and academic organizations. \nAbstract \nZero trust (ZT) is the term for an evolving set of cybersecurity paradigms that move defenses \nfrom static, network-based perimeters to focus on users, assets, and resources. A zero trust \narchitecture (ZTA) uses zero trust principles to plan industrial and enterprise infrastructure and \nworkflows. Zero trust assumes there is no implicit trust granted to assets or user accounts based"
+      ],
+      "recall_at_3_hit": true,
+      "matched_terms": [
+        "zero trust",
+        "implicit trust"
+      ],
+      "error": "429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-2.5-flash\\nPlease retry in 56.253219762s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerDayPerProjectPerModel-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-2.5-flash'}, 'quotaValue': '20'}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '56s'}]}}"
+    },
+    {
+      "id": 2,
+      "type": "rag",
+      "question": "제로 트러스트에서는 네트워크 위치만으로 사용자를 신뢰할 수 있는가?",
+      "retrieval_latency_ms": 45.95,
+      "retrieved_sources": [
+        {
+          "source": "nist_sp_800_207_zero_trust.pdf / p.4",
+          "score": 0.8092
+        },
+        {
+          "source": "nist_sp_800_207_zero_trust.pdf / p.4",
+          "score": 0.8029
+        },
+        {
+          "source": "nist_sp_800_207_zero_trust.pdf / p.32",
+          "score": 0.8016
+        }
+      ],
+      "retrieved_contexts": [
+        "infrastructure and \nworkflows. Zero trust assumes there is no implicit trust granted to assets or user accounts based \nsolely on their physical or network location (i.e., local area networks versus the internet) or based \non asset ownership (enterprise or personally owned). Authentication and authorization (both \nsubject and device) are discrete functions performed before a session to an enterprise resource is \nestablished. Zero trust is a response to enterprise network trends that include remote users, bring",
+        "prise resource is \nestablished. Zero trust is a response to enterprise network trends that include remote users, bring \nyour own device (BYOD), and cloud-based assets that are not located within an enterprise-\nowned network boundary. Zero trust focuses on protecting resources (assets, services, \nworkflows, network accounts, etc.), not network segments, as the network location is no longer \nseen as the prime component to the security posture of the resource. This document contains an \nabstract definition of zero trust architecture (ZTA) and gives general deployment models and use",
+        "instance, ZTA has its roots in organizations that are geographically distributed and/or have a \nhighly mobile workforce. That said, any organization can benefit from a zero trust architecture. \nIn the use cases below, ZTA is not explicitly indicated since the enterprise likely has both \nperimeter-based and possibly ZTA infrastructures. As discussed in Section 7.2, there will likely \nbe a period when ZTA components and perimeter-based network infrastructure are concurrently \nin operation in an enterprise. \n4.1 Enterprise with Satellite Facilities"
+      ],
+      "recall_at_3_hit": true,
+      "matched_terms": [
+        "network location",
+        "implicit trust"
+      ],
+      "error": "429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-2.5-flash\\nPlease retry in 55.913800365s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerDayPerProjectPerModel-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-2.5-flash'}, 'quotaValue': '20'}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '55s'}]}}"
+    },
+    {
+      "id": 3,
+      "type": "rag",
+      "question": "제로 트러스트 아키텍처의 기본 목표는 무엇인가?",
+      "retrieval_latency_ms": 57.78,
+      "retrieved_sources": [
+        {
+          "source": "nist_sp_800_207_zero_trust.pdf / p.15",
+          "score": 0.787
+        },
+        {
+          "source": "nist_sp_800_207_zero_trust.pdf / p.10",
+          "score": 0.7787
+        },
+        {
+          "source": "nist_sp_800_207_zero_trust.pdf / p.4",
+          "score": 0.7773
+        }
+      ],
+      "retrieved_contexts": [
+        "wing is an \nattempt to define ZT and ZTA in terms of basic tenets that should be involved rather than what is \nexcluded. These tenets are the ideal goal, though it must be acknowledged that not all tenets may \nbe fully implemented in their purest form for a given strategy. \nA zero trust architecture is designed and deployed with adherence to the following zero trust \nbasic tenets: \n1. All data sources and computing services are considered resources. A network may be \ncomposed of multiple classes of devices. A network may also have small footprint",
+        "ccess as well as continually authenticating and authorizing the identity and security \nposture of each access request. \nA zero trust architecture (ZTA) is an enterprise cybersecurity architecture that is based on zero \ntrust principles and designed to prevent data breaches and limit internal lateral movement. This \npublication discusses ZTA, its logical components, possible deployment scenarios, and threats. It \nalso presents a general road map for organizations wishing to migrate to a zero trust design",
+        "on system security, and its collaborative activities with industry, \ngovernment, and academic organizations. \nAbstract \nZero trust (ZT) is the term for an evolving set of cybersecurity paradigms that move defenses \nfrom static, network-based perimeters to focus on users, assets, and resources. A zero trust \narchitecture (ZTA) uses zero trust principles to plan industrial and enterprise infrastructure and \nworkflows. Zero trust assumes there is no implicit trust granted to assets or user accounts based"
+      ],
+      "recall_at_3_hit": true,
+      "matched_terms": [
+        "resource"
+      ],
+      "error": "429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-2.5-flash\\nPlease retry in 55.536628752s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerDayPerProjectPerModel-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-2.5-flash'}, 'quotaValue': '20'}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '55s'}]}}"
+    },
+    {
+      "id": 4,
+      "type": "rag",
+      "question": "제로 트러스트에서 인증과 인가는 언제 수행되는가?",
+      "retrieval_latency_ms": 31.76,
+      "retrieved_sources": [
+        {
+          "source": "nist_sp_800_207_zero_trust.pdf / p.14",
+          "score": 0.7776
+        },
+        {
+          "source": "nist_sp_800_207_zero_trust.pdf / p.10",
+          "score": 0.7775
+        },
+        {
+          "source": "nist_sp_800_207_zero_trust.pdf / p.51",
+          "score": 0.7768
+        }
+      ],
+      "retrieved_contexts": [
+        "as \npossible. \nZero trust provides a set of principles and concepts around moving the PDP/PEPs closer to the \nresource. The idea is to explicitly authenticate and authorize all subjects, assets and workflows \nthat make up the enterprise. \n \n3 Part of the concepts defined in OASIS XACML 2.0 https://docs.oasis-open.org/xacml/2.0/access_control-xacml-2.0-core-spec-\nos.pdf",
+        "also been shown to be insufficient since once \nattackers breach the perimeter, further lateral movement is unhindered. \nThis complex enterprise has led to the development of a new model for cybersecurity known as \n“zero trust” (ZT). A ZT approach is primarily focused on data and service protection but can and \nshould be expanded to include all enterprise assets (devices, infrastructure components, \napplications, virtual and cloud components) and subjects (end users, applications and other non-\nhuman entities that request information from resources). Throughout this document, “subject”",
+        "ng Standards Publication (FIPS) 199. \n \n[Gilman] Gilman E, Barth D (2017) Zero Trust Networks: Building Secure Systems \nin Untrusted Networks (O’Reilly Media, Inc., Sebastopol, CA), 1st Ed. \n[HWAM] Department of Homeland Security (2015) Hardware Asset Management \n(HWAM) Capability Description. Available at https://www.us-\ncert.gov/sites/default/files/cdm_files/HWAM_CapabilityDescription.pdf \n[IBNVN] Cohen R, Barabash K, Rochwerger B, Schour L, Crisan D, Birke R, \nMinkenberg C, Gusat M, Recio R, Jain V (2013) An Intent-based \nApproach for Network Virtualization. 2013 IFIP/IEEE International"
+      ],
+      "recall_at_3_hit": false,
+      "matched_terms": [],
+      "error": "429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-2.5-flash\\nPlease retry in 55.192312288s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerDayPerProjectPerModel-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-2.5-flash'}, 'quotaValue': '20'}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '55s'}]}}"
+    },
+    {
+      "id": 5,
+      "type": "rag",
+      "question": "Policy Engine의 역할은 무엇인가?",
+      "retrieval_latency_ms": 49.01,
+      "retrieved_sources": [
+        {
+          "source": "nist_sp_800_207_zero_trust.pdf / p.18",
+          "score": 0.8059
+        },
+        {
+          "source": "nist_sp_800_207_zero_trust.pdf / p.19",
+          "score": 0.8015
+        },
+        {
+          "source": "nist_sp_800_207_zero_trust.pdf / p.26",
+          "score": 0.7988
+        }
+      ],
+      "retrieved_contexts": [
+        "e ultimate decision to grant \naccess to a resource for a given subject. The PE uses enterprise policy as well as input \nfrom external sources (e.g., CDM systems, threat intelligence services described below) \nas input to a trust algorithm (see Section 3.3 for more details) to grant, deny, or revoke \naccess to the resource. The PE is paired with the policy administrator component. The \npolicy engine makes and logs the decision (as approved, or denied), and the policy \nadministrator executes the decision. \n• Policy administrator (PA): This component is responsible for establishing and/or",
+        "internal or external sources \nthat help the policy engine make access decisions. These could be multiple services that \ntake data from internal and/or multiple external sources and provide information about \nnewly discovered attacks or vulnerabilities. This also includes newly discovered flaws in \nsoftware, newly identified malware, and reported attacks to other assets that the policy \nengine will want to deny access to from enterprise assets. \n• Network and system activity logs: This enterprise system aggregates asset logs,",
+        "h sandboxed application is secure, which may require more effort than simply monitoring \ndevices. \n3.3 Trust Algorithm \nFor an enterprise with a ZTA deployment, the policy engine can be thought of as the brain and \nthe PE’s trust algorithm as its primary thought process. The trust algorithm (TA) is the process \nused by the policy engine to ultimately grant or deny access to a resource. The policy engine \ntakes input from multiple sources (see Section 3): the policy database with observable \ninformation about subjects, subject attributes and roles, historical subject behavior patterns,"
+      ],
+      "recall_at_3_hit": true,
+      "matched_terms": [
+        "policy engine"
+      ],
+      "error": "429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-2.5-flash\\nPlease retry in 54.889073632s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerDayPerProjectPerModel-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-2.5-flash'}, 'quotaValue': '20'}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '54s'}]}}"
+    }
+  ]
+}

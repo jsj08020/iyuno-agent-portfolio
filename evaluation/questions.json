@@ -1,0 +1,187 @@
+[
+  {
+    "id": 1,
+    "type": "rag",
+    "question": "제로 트러스트란 무엇인가?",
+    "expected_terms": ["zero trust", "implicit trust"]
+  },
+  {
+    "id": 2,
+    "type": "rag",
+    "question": "제로 트러스트에서는 네트워크 위치만으로 사용자를 신뢰할 수 있는가?",
+    "expected_terms": ["network location", "implicit trust"]
+  },
+  {
+    "id": 3,
+    "type": "rag",
+    "question": "제로 트러스트 아키텍처의 기본 목표는 무엇인가?",
+    "expected_terms": ["enterprise resources", "resource"]
+  },
+  {
+    "id": 4,
+    "type": "rag",
+    "question": "제로 트러스트에서 인증과 인가는 언제 수행되는가?",
+    "expected_terms": ["authentication", "authorization"]
+  },
+  {
+    "id": 5,
+    "type": "rag",
+    "question": "Policy Engine의 역할은 무엇인가?",
+    "expected_terms": ["policy engine"]
+  },
+  {
+    "id": 6,
+    "type": "rag",
+    "question": "Policy Administrator는 어떤 역할을 수행하는가?",
+    "expected_terms": ["policy administrator"]
+  },
+  {
+    "id": 7,
+    "type": "rag",
+    "question": "Policy Enforcement Point란 무엇인가?",
+    "expected_terms": ["policy enforcement point"]
+  },
+  {
+    "id": 8,
+    "type": "rag",
+    "question": "제로 트러스트 아키텍처에서 Control Plane은 어떤 역할을 하는가?",
+    "expected_terms": ["control plane"]
+  },
+  {
+    "id": 9,
+    "type": "rag",
+    "question": "제로 트러스트의 Trust Algorithm은 무엇을 판단하는가?",
+    "expected_terms": ["trust algorithm"]
+  },
+  {
+    "id": 10,
+    "type": "rag",
+    "question": "제로 트러스트에서 최소 권한 접근은 왜 중요한가?",
+    "expected_terms": ["least privilege", "access"]
+  },
+  {
+    "id": 11,
+    "type": "rag",
+    "question": "사용자뿐 아니라 장치 상태도 접근 결정에 사용되는가?",
+    "expected_terms": ["device", "asset"]
+  },
+  {
+    "id": 12,
+    "type": "rag",
+    "question": "Continuous Diagnostics and Mitigation은 제로 트러스트에서 어떻게 활용되는가?",
+    "expected_terms": ["continuous diagnostics", "CDM"]
+  },
+  {
+    "id": 13,
+    "type": "rag",
+    "question": "위협 인텔리전스는 접근 정책 결정에 활용될 수 있는가?",
+    "expected_terms": ["threat intelligence"]
+  },
+  {
+    "id": 14,
+    "type": "rag",
+    "question": "네트워크 및 시스템 활동 로그는 제로 트러스트에서 왜 필요한가?",
+    "expected_terms": ["network and system activity", "logs"]
+  },
+  {
+    "id": 15,
+    "type": "rag",
+    "question": "Identity Management 시스템은 제로 트러스트에서 어떤 역할을 하는가?",
+    "expected_terms": ["identity management"]
+  },
+  {
+    "id": 16,
+    "type": "rag",
+    "question": "PKI는 제로 트러스트 환경에서 어떻게 활용될 수 있는가?",
+    "expected_terms": ["PKI", "public key"]
+  },
+  {
+    "id": 17,
+    "type": "rag",
+    "question": "Micro-segmentation을 이용한 제로 트러스트 구축 방식은 무엇인가?",
+    "expected_terms": ["micro-segmentation"]
+  },
+  {
+    "id": 18,
+    "type": "rag",
+    "question": "Software Defined Perimeter를 제로 트러스트에 활용할 수 있는가?",
+    "expected_terms": ["software defined perimeter", "SDP"]
+  },
+  {
+    "id": 19,
+    "type": "rag",
+    "question": "Enhanced Identity Governance 기반 제로 트러스트 방식은 무엇인가?",
+    "expected_terms": ["identity governance"]
+  },
+  {
+    "id": 20,
+    "type": "rag",
+    "question": "원격 근무자가 기업 자원에 접근할 때 제로 트러스트를 어떻게 적용할 수 있는가?",
+    "expected_terms": ["remote", "enterprise resource"]
+  },
+  {
+    "id": 21,
+    "type": "rag",
+    "question": "클라우드 환경에서도 제로 트러스트를 적용할 수 있는가?",
+    "expected_terms": ["cloud"]
+  },
+  {
+    "id": 22,
+    "type": "rag",
+    "question": "기존 네트워크에서 제로 트러스트로 전환할 때 무엇을 파악해야 하는가?",
+    "expected_terms": ["business process", "assets"]
+  },
+  {
+    "id": 23,
+    "type": "rag",
+    "question": "제로 트러스트 환경에서도 탈취된 인증정보는 위협이 될 수 있는가?",
+    "expected_terms": ["credentials", "credential"]
+  },
+{
+  "id": 24,
+  "type": "rag",
+  "question": "제로 트러스트 아키텍처 자체에 대한 공격이나 서비스 거부 공격 가능성도 존재하는가?",
+  "expected_terms": [
+    "denial of service",
+    "network disruption",
+    "dos attack",
+    "policy administrator"
+  ]
+},
+  {
+    "id": 25,
+    "type": "tool",
+    "question": "CVE-2021-44228의 CVSS 점수와 어떤 취약점인지 알려줘.",
+    "expected_tool": "lookup_cve"
+  },
+  {
+    "id": 26,
+    "type": "tool",
+    "question": "CVE-2017-0144에 대해 NVD에서 조회해서 알려줘.",
+    "expected_tool": "lookup_cve"
+  },
+  {
+    "id": 27,
+    "type": "tool",
+    "question": "CVE-2023-44487의 취약점 정보와 심각도를 알려줘.",
+    "expected_tool": "lookup_cve"
+  },
+  {
+    "id": 28,
+    "type": "tool",
+    "question": "17 곱하기 23을 계산해줘.",
+    "expected_tool": "calculate_expression"
+  },
+  {
+    "id": 29,
+    "type": "tool",
+    "question": "1024를 8로 나누면 얼마인지 계산해줘.",
+    "expected_tool": "calculate_expression"
+  },
+  {
+    "id": 30,
+    "type": "tool",
+    "question": "(12 + 8) 곱하기 5를 계산해줘.",
+    "expected_tool": "calculate_expression"
+  }
+]

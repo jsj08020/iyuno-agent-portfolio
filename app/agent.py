@@ -3,6 +3,7 @@ import time
 
 from dotenv import load_dotenv
 from google import genai
+from google.genai import types
 
 from retriever import (
     load_documents,
@@ -10,6 +11,13 @@ from retriever import (
     create_vector_store,
     search,
     format_source,
+)
+
+from tools import (
+    calculate_expression,
+    lookup_cve,
+    reset_tool_log,
+    get_tool_log,
 )
 
 
@@ -22,7 +30,7 @@ API_KEY = os.getenv(
 if not API_KEY:
     raise RuntimeError(
         "GEMINI_API_KEY가 "
-        ".env 파일에 설정되어 있지 않습니다."
+        ".env에 설정되어 있지 않습니다."
     )
 
 
@@ -32,10 +40,6 @@ client = genai.Client(
 
 
 def build_context(results):
-    """
-    검색 결과를 Gemini에게 전달할
-    context 문자열로 변환합니다.
-    """
 
     context_parts = []
 
@@ -67,7 +71,10 @@ def ask_agent(
     top_k=3
 ):
 
-    # 1. 관련 문서 검색
+    # 이전 tool log 초기화
+    reset_tool_log()
+
+    # RAG 검색
     results = search(
         query=query,
         index=index,
@@ -75,46 +82,48 @@ def ask_agent(
         top_k=top_k
     )
 
-    if len(results) == 0:
-        return (
-            "관련 문서를 찾지 못했습니다.",
-            results
-        )
-
-    # 2. 검색 문서들을 context로 구성
     context = build_context(
         results
     )
 
-    # 3. Gemini prompt
     prompt = f"""
-너는 공개 기술 문서를 기반으로 질문에 답변하는
-RAG AI Agent다.
+너는 사이버보안 기술 문서를 기반으로
+질문에 답변하는 RAG AI Agent다.
 
-반드시 아래 규칙을 지켜라.
+너에게는 다음 도구도 제공된다.
 
-1. [검색된 문서]에 제공된 내용만 근거로 답변한다.
+1. calculate_expression
+   - 정확한 수학 계산이 필요한 경우 사용한다.
 
-2. 검색 문서에 없는 사실을 임의로 추측하거나
-   만들어내지 않는다.
+2. lookup_cve
+   - 사용자가 CVE ID에 대해 질문할 경우
+     NIST NVD API를 조회하는 데 사용한다.
 
-3. 문서만으로 질문에 답변할 수 없다면
-   "제공된 문서에서는 확인할 수 없습니다."
-   라고 명확하게 말한다.
+규칙:
 
-4. 답변은 한국어로 작성한다.
+1. 일반적인 보안 개념 질문은
+   아래 검색된 문서를 우선 근거로 사용한다.
 
-5. 전문용어는 필요한 경우 쉽게 설명한다.
+2. CVE 번호가 포함된 질문은
+   가능하면 lookup_cve 도구를 사용한다.
 
-6. 답변에서 중요한 주장에는 가능한 경우
-   관련 문서 출처를 표시한다.
+3. 계산이 필요한 경우
+   직접 암산하지 말고 calculate_expression을 사용한다.
 
-7. 답변 마지막에는 반드시
-   "출처" 항목을 만들어 사용한
-   파일명과 페이지 번호를 표시한다.
-
-8. 제공되지 않은 페이지 번호를
+4. 문서에 없는 내용을
    임의로 만들어내지 않는다.
+
+5. tool 결과를 사용했다면
+   어떤 도구의 정보를 사용했는지
+   답변에 명확하게 표시한다.
+
+6. 문서를 사용했다면
+   답변 마지막에 파일명과 페이지 번호를 표시한다.
+
+7. NVD API 결과를 사용했다면
+   출처를 "NIST NVD API"라고 표시한다.
+
+8. 답변은 한국어로 작성한다.
 
 
 [검색된 문서]
@@ -138,13 +147,27 @@ RAG AI Agent다.
             response = (
                 client.models.generate_content(
                     model="gemini-2.5-flash",
-                    contents=prompt
+                    contents=prompt,
+                    config=types.GenerateContentConfig(
+                        tools=[
+                            calculate_expression,
+                            lookup_cve
+                        ],
+                        automatic_function_calling=(
+                            types.AutomaticFunctionCallingConfig(
+                                maximum_remote_calls=3
+                            )
+                        )
+                    )
                 )
             )
 
+            tool_logs = get_tool_log()
+
             return (
                 response.text,
-                results
+                results,
+                tool_logs
             )
 
         except Exception as e:
@@ -153,11 +176,9 @@ RAG AI Agent다.
 
             temporary_error = (
                 "503" in error_message
-                or
-                "UNAVAILABLE"
+                or "UNAVAILABLE"
                 in error_message
-                or
-                "high demand"
+                or "high demand"
                 in error_message.lower()
             )
 
@@ -172,12 +193,8 @@ RAG AI Agent다.
                 )
 
                 print(
-                    "Gemini 서버 "
-                    "일시 오류 발생. "
-                    f"{wait_time}초 후 "
-                    "재시도합니다. "
-                    f"({attempt + 1}/"
-                    f"{max_retries})"
+                    f"Gemini 서버 일시 오류. "
+                    f"{wait_time}초 후 재시도."
                 )
 
                 time.sleep(
@@ -197,27 +214,8 @@ if __name__ == "__main__":
 
     documents = load_documents()
 
-    if len(documents) == 0:
-
-        print(
-            "data/documents 폴더에 "
-            "문서가 없습니다."
-        )
-
-        exit()
-
     chunks = create_chunks(
         documents
-    )
-
-    print(
-        f"읽은 문서 페이지 수: "
-        f"{len(documents)}"
-    )
-
-    print(
-        f"생성된 chunk 수: "
-        f"{len(chunks)}"
     )
 
     index = create_vector_store(
@@ -225,12 +223,7 @@ if __name__ == "__main__":
     )
 
     print(
-        f"FAISS 저장 chunk 수: "
-        f"{index.ntotal}"
-    )
-
-    print(
-        "RAG Agent 준비 완료"
+        "RAG + Tool Calling Agent 준비 완료"
     )
 
     while True:
@@ -248,66 +241,37 @@ if __name__ == "__main__":
 
         try:
 
-            answer, results = (
-                ask_agent(
-                    query=query,
-                    index=index,
-                    chunks=chunks,
-                    top_k=3
-                )
+            (
+                answer,
+                results,
+                tool_logs
+            ) = ask_agent(
+                query=query,
+                index=index,
+                chunks=chunks
             )
 
             print(
                 "\n===== AI 답변 ====="
             )
 
-            print(
-                answer
-            )
+            print(answer)
 
             print(
-                "\n===== 검색된 출처 ====="
+                "\n===== Tool Calls ====="
             )
 
-            for result in results:
+            if tool_logs:
+                for log in tool_logs:
+                    print(log)
 
-                source_text = (
-                    format_source(
-                        result
-                    )
-                )
-
+            else:
                 print(
-                    f"- {source_text} "
-                    f"| chunk "
-                    f"{result['chunk_id']} "
-                    f"| score "
-                    f"{result['score']:.4f}"
+                    "사용된 Tool 없음"
                 )
 
         except Exception as e:
 
-            error_message = str(e)
-
-            if (
-                "503" in error_message
-                or
-                "UNAVAILABLE"
-                in error_message
-                or
-                "high demand"
-                in error_message.lower()
-            ):
-
-                print(
-                    "\n현재 Gemini 모델 "
-                    "사용량이 많습니다. "
-                    "잠시 후 다시 "
-                    "질문해주세요."
-                )
-
-            else:
-
-                print(
-                    f"\n오류 발생: {e}"
-                )
+            print(
+                f"오류 발생: {e}"
+            )
